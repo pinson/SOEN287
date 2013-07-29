@@ -1,86 +1,155 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <title>Lab 2 - Part 1</title>
+<title>Lab 2 - Part 1</title>
 
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-	<style type="text/css">
-	</style>
+<style type="text/css">
+th {
+	border: 1px solid black;
+	height: 25px;
+	width: 75px;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+}
 
-	<script type="text/javascript">
+td {
+	border: 1px solid black;
+	height: 25px;
+	width: 75px;
+	text-align: center;
+	padding: 0;
+	margin: 0;
+}
+
+</style>
+
+<script type="text/javascript">
+
 var start = function () {
-	var num1 = new Number();
-	var num2 = new Number();
-	var floatCheck = .;
+	
+	var ptag = document.getElementById("para");
 
-	funtion IntCheck(num1, num2) {
-		if (num1 <= 0 || num2 <= 0){
-			alert("The numbers cannot be negative or equal to 0");
-			num1 = new Number();
-			num2 = new Number();
-		} else if (num1 + num2 > 100){
-			alert("The sum of both numbers is 100 or less");
-			num1 = new Number();
-			num2 = new Number();
-		} else if (isNaN(num1) || isNaN(nu2)){
-			alert("The field cannot contain letters");
-			num1 = new Number();
-			num2 = new Number();
-		} else if (floatCheck.test(num1) || floatCheck.test(num1)){
-			alert("The numbers must be an integer");
-			num1 = new Number();
-			num2 = new Number();
-		}
- 	}
-
-	function GetTable(num1, num2){
-		var table = document.createElement("table");
-		var tr = document.createElement("tr");
-		var td = document.createElement("td");
-		var text = document.createTextNode("");
-		td.appendChild(text);
-		tr.appendChild(td);
-		table.appendChild(tr);
-
-		for (var j = 1; i <= num1; j++){
-			td = document.createElement("td");
-			text = document.createTextNode(j);
-			td.appendChild(text);
-			tr.appendChild(td);
-			table.appendChild(tr);
-			
-			for (var i = 1; i <= num2; i++){
-				td = document.createElement("td");
-				text = document.createTextNode(i * j);
-				td.appendChild(text);
-				tr.appendChild(td);
-				table.appendChild(tr);
-				tr = document.createElement("tr");
-			}
-		}
+	while (ptag.firstChild) {
+		ptag.removeChild(ptag.firstChild);
 	}
 
+	var txt = document.createTextNode("I am an awesome paragraph.");
+	var bold = document.createElement("b");
+	bold.appendChild(txt);
+	ptag.appendChild(bold);
+	
+	
+	var generate = document.getElementById("gen");
+	generate.addEventListener("click", function() {
+		genTable(2, 3);
+	}, false);
+	
+	var floatCheck = .;
+	var frm = document.getElementById("frm");
+	frm.addEventListener("submit", function(e) {
+		var num1 = document.getElementById("num1");
+		var num2 = document.getElementById("num2");
+		var val = num1.value;
+		var n1 = parseInt(val, 10);
+		val = num2.value;
+		var n2 = parseInt(val, 10);
+		if (n1 <= 0 || n2 <= 0){
+			alert("The numbers cannot be negative or equal to 0");
+		} else if (n1 + n2 > 100){
+			alert("The sum of both numbers is 100 or less");
+		} else if (isNaN(n1) || isNaN(n2)){
+			alert("The field cannot contain letters");
+		} else if (floatCheck.test(n1) || floatCheck.test(n1)){
+			alert("The numbers must be an integer");
+		}
+		genTable(n1, n2);
+		e.preventDefault();
+	} , false);
+}
 
+var genTable = function (n1, n2){
+	var div = document.getElementById("mydiv");
+	while (div.firstChild) {
+		div.removeChild(div.firstChild);
+	}
+	
+	var table = document.createElement("table");
+	div.appendChild(table);
+	var td;
+	var tr = document.createElement("tr");
+	var th = document.createElement("th");
+	var text = document.createTextNode(" ");
+	
+	th.appendChild(text);
+	tr.appendChild(th);
+	table.appendChild(tr);
+	for (var j = 1; i <= n1; j++){
+		for (var i = 1; i <= n2; i++){
+			text = document.createTextNode(i * j);
+			if (j == 1){
+				th = document.createElement("th");
+				th.appendChild(text);
+				tr.appendChild(th);
+			} else {
+				td = document.createElement("td");
+				td.appendChild(text);
+				tr.appendChild(td);
+			}
+			table.appendChild(tr);
+		}
+		th = document.createElement("th");
+		text = document.createTextNode(j);
+		
+		th.appendChild(text);
+		tr.appendChild(th);
+		table.appendChild(tr);
+		tr = document.createElement("tr");
+	}
+}
+
+window.addEventListener("load", start, false);
 </script>
-
 </head>
 <body>
-	<h1><marquee>Times Table!</marquee></h1>
-	<p>Few rules to respect:</p>
+	<h1>Times Table!</h1>
+	<p id="para">Few rules to respect:</p>
 	<ul>
 		<li>The numbers must be an integer</li>
 		<li>The sum of both numbers is 100 or less</li>
 		<li>The numbers cannot be negative or equal to 0</li>
 		<li>The field cannot contain letters</li>
 	</ul>
-	<p id="para">Enter two integers here:</p>
+	<p>Enter two integers here:</p>
+	
 	<form method="GET" action="?" id="frm">
 		<input id="num1" />
 		<input id="num2" />
 		<input type="submit" />
 	</form>
+	<p><span id="gen" style="border: 1px solid red">Generate List</span></p>
 
-	<div id="mydiv"></div>
+	<div id="mydiv">
+		<p> Example:</p>
+		<table>
+			<tr>
+				<th> </th>
+				<th>1</th>
+				<th>2</th>
+			</tr>
+			<tr>
+				<th>1</th>
+				<td>1</td>
+				<td>2</td>
+			</tr>
+			<tr>
+				<th>2</th>
+				<td>2</td>
+				<td>4</td>
+			</tr>
+		</table>	
+	</div>
 </body>
 </html>
