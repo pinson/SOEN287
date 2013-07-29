@@ -6,10 +6,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 <style type="text/css">
+
+table {
+	border-collapse:collapse;
+}
+
 th {
 	border: 1px solid black;
 	height: 25px;
-	width: 75px;
+	width: 100px;
 	text-align: center;
 	padding: 0;
 	margin: 0;
@@ -18,7 +23,7 @@ th {
 td {
 	border: 1px solid black;
 	height: 25px;
-	width: 75px;
+	width: 100px;
 	text-align: center;
 	padding: 0;
 	margin: 0;
@@ -26,51 +31,56 @@ td {
 
 </style>
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
 var start = function () {
 	
-	var ptag = document.getElementById("para");
-
-	while (ptag.firstChild) {
-		ptag.removeChild(ptag.firstChild);
+	var displayGT = false; //Change this to true for button "Generate Table"
+	if (displayGT == false) {
+		while (button.firstChild) {
+		button.removeChild(button.firstChild);
+		}
+	} else {
+		var generate = document.getElementById("gen");
+		generate.addEventListener("click", function() {
+			gentable(3, 4);
+		}, false);
 	}
-
-	var txt = document.createTextNode("I am an awesome paragraph.");
-	var bold = document.createElement("b");
-	bold.appendChild(txt);
-	ptag.appendChild(bold);
 	
-	
-	var generate = document.getElementById("gen");
-	generate.addEventListener("click", function() {
-		genTable(2, 3);
-	}, false);
-	
-	var floatCheck = .;
+	var result = true;
+	var reg = /\D/i;
 	var frm = document.getElementById("frm");
 	frm.addEventListener("submit", function(e) {
+		e.preventDefault();
 		var num1 = document.getElementById("num1");
 		var num2 = document.getElementById("num2");
-		var val = num1.value;
-		var n1 = parseInt(val, 10);
-		val = num2.value;
-		var n2 = parseInt(val, 10);
-		if (n1 <= 0 || n2 <= 0){
+		var val1 = num1.value;
+		var n1 = parseInt(val1);
+		var fCheck1 = parseFloat(val1);
+		var val2 = num2.value;
+		var n2 = parseInt(val2);
+		var fCheck2 = parseFloat(val2);
+		if (n1 <= 0 || n2 <= 0) {
 			alert("The numbers cannot be negative or equal to 0");
-		} else if (n1 + n2 > 100){
+			result = false;
+		} else if (n1 + n2 > 100) {
 			alert("The sum of both numbers is 100 or less");
-		} else if (isNaN(n1) || isNaN(n2)){
-			alert("The field cannot contain letters");
-		} else if (floatCheck.test(n1) || floatCheck.test(n1)){
+			result = false;
+		} else if (reg.test(val1) || reg.test(val2)) {
+			alert("The fields must contain digits");
+			result = false;
+		} else if (n1 != fCheck1 || n2 != fCheck2) {
 			alert("The numbers must be an integer");
+			result = false;
 		}
-		genTable(n1, n2);
-		e.preventDefault();
+		if (result == true) {
+			gentable(n1, n2);
+		}
+		result = true;
 	} , false);
 }
 
-var genTable = function (n1, n2){
+var gentable = function (n, m) {
 	var div = document.getElementById("mydiv");
 	while (div.firstChild) {
 		div.removeChild(div.firstChild);
@@ -79,34 +89,35 @@ var genTable = function (n1, n2){
 	var table = document.createElement("table");
 	div.appendChild(table);
 	var td;
-	var tr = document.createElement("tr");
-	var th = document.createElement("th");
-	var text = document.createTextNode(" ");
+	var tr;
+	var th;
+	var text;
 	
-	th.appendChild(text);
-	tr.appendChild(th);
-	table.appendChild(tr);
-	for (var j = 1; i <= n1; j++){
-		for (var i = 1; i <= n2; i++){
-			text = document.createTextNode(i * j);
-			if (j == 1){
+	for (var j = 0; j <= n; j++) {
+		tr = document.createElement("tr");
+		th = document.createElement("th");
+		if (j == 0) {	
+			text = document.createTextNode(" ");
+		} else if (j > 0) {
+			text = document.createTextNode(j);
+		}
+		th.appendChild(text);
+		tr.appendChild(th);
+		table.appendChild(tr);
+		for (var i = 1; i <= m; i++) {
+			if (j == 0) {
+				text = document.createTextNode(i);				
 				th = document.createElement("th");
 				th.appendChild(text);
-				tr.appendChild(th);
-			} else {
+				tr.appendChild(th);				
+			} else if (j > 0) {
+				text = document.createTextNode(i * j);
 				td = document.createElement("td");
 				td.appendChild(text);
 				tr.appendChild(td);
 			}
 			table.appendChild(tr);
 		}
-		th = document.createElement("th");
-		text = document.createTextNode(j);
-		
-		th.appendChild(text);
-		tr.appendChild(th);
-		table.appendChild(tr);
-		tr = document.createElement("tr");
 	}
 }
 
@@ -115,12 +126,12 @@ window.addEventListener("load", start, false);
 </head>
 <body>
 	<h1>Times Table!</h1>
-	<p id="para">Few rules to respect:</p>
+	<p>Few rules to respect:</p>
 	<ul>
 		<li>The numbers must be an integer</li>
 		<li>The sum of both numbers is 100 or less</li>
 		<li>The numbers cannot be negative or equal to 0</li>
-		<li>The field cannot contain letters</li>
+		<li>The fields must contain digits</li>
 	</ul>
 	<p>Enter two integers here:</p>
 	
@@ -129,7 +140,7 @@ window.addEventListener("load", start, false);
 		<input id="num2" />
 		<input type="submit" />
 	</form>
-	<p><span id="gen" style="border: 1px solid red">Generate List</span></p>
+	<p id="button"><span id="gen" style="border: 1px solid red">Generate Table</span></p>
 
 	<div id="mydiv">
 		<p> Example:</p>
