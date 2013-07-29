@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Untitled</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<style type="text/css">
+.odd 	{
+	color: red;
+}
+.odd 	{
+	color: blue;
+}
+
+
+	</style>
+
+	<script type="text/javascript">
+
+var start = function () {
+
+	var a, b, c;
+	
+	var list = new Array();
+	list = new Array(16);
+	list = new Array(2, 3, 5, 7);
+	list = [];
+	list = [2, 3, 5, 7];
+
+	var obj = new Object();
+	obj = {};
+	obj.someAttrib = 42;
+	obj = { someAttrib: 42 };
+
+	a = 42;
+	b = 3.14;
+	c = "An awesome string";
+
+	c = "This is the number " + (5 + 5);
+
+	if (a == b) {
+		// do stuff
+	} else {
+		// do other stuff 
+	}
+
+	var i;
+	for (i = 0; i < 12; i++) {
+		// stuff
+	}
+
+	while (i > 0) {
+		// derp
+		i--;
+	}
+
+	var foo = function (n) {
+		return n * n;
+	}
+
+	// alert("I am annoying");
+	// bad things...
+	// document.write("I am some text!!!");
+	// ptag.innerHTML = "I am a paragraph";
+
+	var ptag = document.getElementById("para");
+
+	while (ptag.firstChild) {
+		ptag.removeChild(ptag.firstChild);
+	}
+
+	var txt = document.createTextNode("I am an awesome paragraph.");
+	var bold = document.createElement("b");
+	bold.appendChild(txt);
+	ptag.appendChild(bold);
+
+	var generate = document.getElementById("gen");
+	generate.addEventListener("click", function() {
+		genlist(12);
+	}, false);
+
+	var frm = document.getElementById("frm");
+	frm.addEventListener("submit", function(e) {
+		var num = document.getElementById("num");
+		var val = num.value;
+		var n = parseInt(val, 10);
+		if (isNaN(n)) {
+			alert("boo");
+		}
+		genlist(n);
+		e.preventDefault();
+	} , false);
+}
+
+var genlist = function (n) {
+	var div = document.getElementById("mydiv");
+	while (div.firstChild) {
+		div.removeChild(div.firstChild);
+	}
+
+	var ul = document.createElement("ul");
+	div.appendChild(ul);
+
+	for (var i = 1; i <= n; i++) {
+		var li = document.createElement("li");
+		var text = document.createTextNode(i * i * i);
+		li.appendChild(text);
+		ul.appendChild(li);
+	}
+}
+
+var $$ = function(s,p,a) {
+	var m, t = String(s);
+	if (m = t.match(/^<(\w+)>/))
+		s = document.createElement(m[1]);
+	if (m = t.match(/^#(\w+)/))
+		s = document.getElementById(m[1]);
+	if (s && !s.nodeType)
+		s = document.createTextNode(t);
+	if (p)
+		p.appendChild(s);
+	for (var i in a) {
+		s.setAttribute(i, i[a]);
+	}
+}
+
+// onload = start;
+window.addEventListener("load", start, false);
+
+	</script>
+
+</head>
+<body>
+	<p id="para">Some garbage text...</p>
+
+	<form method="GET" action="?" id="frm">
+		<input id="num" />
+		<input type="submit" />
+	</form>
+
+	<p><span id="gen">Generate List</span></p>
+	<div id="mydiv"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
