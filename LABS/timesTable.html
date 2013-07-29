@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lab 2 - Part 1</title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<style type="text/css">
+	</style>
+
+	<script type="text/javascript">
+var start = function () {
+	var num1 = new Number();
+	var num2 = new Number();
+	var floatCheck = .;
+
+	funtion IntCheck(num1, num2) {
+		if (num1 <= 0 || num2 <= 0){
+			alert("The numbers cannot be negative or equal to 0");
+			num1 = new Number();
+			num2 = new Number();
+		} else if (num1 + num2 > 100){
+			alert("The sum of both numbers is 100 or less");
+			num1 = new Number();
+			num2 = new Number();
+		} else if (isNaN(num1) || isNaN(nu2)){
+			alert("The field cannot contain letters");
+			num1 = new Number();
+			num2 = new Number();
+		} else if (floatCheck.test(num1) || floatCheck.test(num1)){
+			alert("The numbers must be an integer");
+			num1 = new Number();
+			num2 = new Number();
+		}
+ 	}
+
+	function GetTable(num1, num2){
+		var table = document.createElement("table");
+		var tr = document.createElement("tr");
+		var td = document.createElement("td");
+		var text = document.createTextNode("");
+		td.appendChild(text);
+		tr.appendChild(td);
+		table.appendChild(tr);
+
+		for (var j = 1; i <= num1; j++){
+			td = document.createElement("td");
+			text = document.createTextNode(j);
+			td.appendChild(text);
+			tr.appendChild(td);
+			table.appendChild(tr);
+			
+			for (var i = 1; i <= num2; i++){
+				td = document.createElement("td");
+				text = document.createTextNode(i * j);
+				td.appendChild(text);
+				tr.appendChild(td);
+				table.appendChild(tr);
+				tr = document.createElement("tr");
+			}
+		}
+	}
+
+
+</script>
+
+</head>
+<body>
+	<h1><marquee>Times Table!</marquee></h1>
+	<p>Few rules to respect:</p>
+	<ul>
+		<li>The numbers must be an integer</li>
+		<li>The sum of both numbers is 100 or less</li>
+		<li>The numbers cannot be negative or equal to 0</li>
+		<li>The field cannot contain letters</li>
+	</ul>
+	<p id="para">Enter two integers here:</p>
+	<form method="GET" action="?" id="frm">
+		<input id="num1" />
+		<input id="num2" />
+		<input type="submit" />
+	</form>
+
+	<div id="mydiv"></div>
+</body>
+</html>
