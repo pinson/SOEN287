@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<!-- saved from url=(0065)http://users.encs.concordia.ca/~a_webbe/s287/lab2/timesTable.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Lab 2 - Part 1</title>
 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
 
 <style type="text/css">
 
@@ -29,6 +29,10 @@ td {
 	margin: 0;
 }
 
+#err {
+	color: #980000;
+}
+
 </style>
 
 	<script type="text/javascript">
@@ -48,7 +52,7 @@ var start = function () {
 	}
 	
 	var result = true;
-	var reg = /\D/i;
+	var reg = /\d/i;
 	var frm = document.getElementById("frm");
 	frm.addEventListener("submit", function(e) {
 		e.preventDefault();
@@ -60,17 +64,29 @@ var start = function () {
 		var val2 = num2.value;
 		var n2 = parseInt(val2);
 		var fCheck2 = parseFloat(val2);
+		var err = document.getElementById("err");
+		while (err.firstChild) {
+		err.removeChild(err.firstChild);
+		}
 		if (n1 <= 0 || n2 <= 0) {
-			alert("The numbers cannot be negative or equal to 0");
+			err = document.getElementById("err");
+			var msg = document.createTextNode("The numbers cannot be negative or equal to 0");
+			err.appendChild(msg);
 			result = false;
 		} else if (n1 + n2 > 100) {
-			alert("The sum of both numbers is 100 or less");
+			err = document.getElementById("err");
+			var msg = document.createTextNode("The sum of both numbers must be 100 or less");
+			err.appendChild(msg);
 			result = false;
-		} else if (reg.test(val1) || reg.test(val2)) {
-			alert("The fields must contain digits");
+		} else if (!(reg.test(val1) && reg.test(val2))) {
+			err = document.getElementById("err");
+			var msg = document.createTextNode("The fields must contain digits");
+			err.appendChild(msg);
 			result = false;
 		} else if (n1 != fCheck1 || n2 != fCheck2) {
-			alert("The numbers must be an integer");
+			err = document.getElementById("err");
+			var msg = document.createTextNode("The numbers must be integers");
+			err.appendChild(msg);
 			result = false;
 		}
 		if (result == true) {
@@ -129,23 +145,25 @@ window.addEventListener("load", start, false);
 	<p>Few rules to respect:</p>
 	<ul>
 		<li>The numbers must be an integer</li>
-		<li>The sum of both numbers is 100 or less</li>
+		<li>The sum of both numbers must be 100 or less</li>
 		<li>The numbers cannot be negative or equal to 0</li>
 		<li>The fields must contain digits</li>
 	</ul>
 	<p>Enter two integers here:</p>
 	
-	<form method="GET" action="?" id="frm">
-		<input id="num1" />
-		<input id="num2" />
-		<input type="submit" />
+	<form method="GET" action="http://users.encs.concordia.ca/~a_webbe/s287/lab2/timesTable.html?" id="frm">
+		<input id="num1">
+		<input id="num2">
+		<input type="submit">
 	</form>
-	<p id="button"><span id="gen" style="border: 1px solid red">Generate Table</span></p>
+	<p id="button"></p>
 
+	<p id="err"></p>
+	
 	<div id="mydiv">
 		<p> Example:</p>
 		<table>
-			<tr>
+			<tbody><tr>
 				<th> </th>
 				<th>1</th>
 				<th>2</th>
@@ -160,7 +178,8 @@ window.addEventListener("load", start, false);
 				<td>2</td>
 				<td>4</td>
 			</tr>
-		</table>	
+		</tbody></table>	
 	</div>
-</body>
-</html>
+
+
+</body></html>
