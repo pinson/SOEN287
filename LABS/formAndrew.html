@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Lab 2 - Part 1</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<style type="text/css">
+
+</style>
+
+  <script type="text/javascript">
+
+var start = function () {
+	
+	var displayGE = false; //Change this to true for button "Generate Message"
+	if (displayGE == false) {
+		while (button.firstChild) {
+		button.removeChild(button.firstChild);
+		}
+	} else {
+		var generate = document.getElementById("gen");
+		generate.addEventListener("click", function() {
+			genForm("Alexandre Hudon", "alexandre.hudon@sympatico.ca", "999-999-9999", "A1A 1A1");
+		}, false);
+	}
+	var regName = /^([A-Z]+[a-z]*)\s([A-Z]+[a-z]*)/; //done
+	var regNum = /\d/;
+	var regEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/; //done
+	var regPhone = /^[2-9]\d{2}-\d{3}-\d{4}$/; //done
+	var regPostal = /^([A-Z]\d[A-Z]\s\d[A-Z]\d)$/; //done
+	var frm = document.getElementById("frm");
+	frm.addEventListener("submit", function(e) {
+		e.preventDefault();
+		var temp = document.getElementById("name");
+		var val = temp.value;
+		var name = val.toString();
+		temp = document.getElementById("email");
+		val = temp.value;
+		var email = val.toString();
+		temp = document.getElementById("phone");
+		val = temp.value;
+		var phone = val.toString();
+		temp = document.getElementById("postal");
+		val = temp.value;
+		var postal = val.toString();
+		var result = true;
+		if (!(regName.test(name)) || regNum.test(name)) {
+			alert("Please reenter your name, It must have your First and Last name. Both names must start with capitol letters.");
+			result = false;
+		} else if (!(regEmail.test(email))) {
+			alert("Please enter your email like this: alexandre.hudon@sympatico.ca.");
+			result = false;
+		} else if (!(regPhone.test(phone))) {
+			alert("Please reenter your Phone number as such: 999-999-9999.");
+			result = false;
+		} else if (!(regPostal.test(postal))) {
+			alert("Please reenter your Postal Code in capitals and with a space. For Example A1A 1A1.");
+			result = false;
+		}
+		//Add error check here.
+		if (result == true) {
+			genForm(name, email, phone, postal);
+		}
+		} , false);
+}
+
+var genForm = function (n, e, ph, pc) {
+	var div = document.getElementById("mydiv");
+	while (div.firstChild) {
+		div.removeChild(div.firstChild);
+	}
+	var divForm = document.createElement("div");
+	div.appendChild(divForm);
+	var para = document.createElement("p");
+	var text = document.createTextNode("Dear " + n + ",");
+	para.appendChild(text);
+	divForm.appendChild(para);
+	para = document.createElement("p");
+	text = document.createTextNode("Thank you for registering to this website. A copy of this email has been sent to: " + e + ".");
+	para.appendChild(text);
+	divForm.appendChild(para);
+	text = document.createTextNode("We will also try to call you on your cellphone (" + ph + ") and send mail to your mailbox (" + pc + ").");
+	para = document.createElement("p");
+	para.appendChild(text);
+	divForm.appendChild(para);
+	para = document.createElement("p");
+	text = document.createTextNode("Have a nice day,");
+	para.appendChild(text);
+	divForm.appendChild(para);
+	para = document.createElement("p");
+	text = document.createTextNode("Team 3, Andrew and Pinson");
+	para.appendChild(text);
+	divForm.appendChild(para);
+}
+
+window.addEventListener("load", start, false);
+</script>
+</head>
+<body>
+	<h1>Form</h1>
+	<p>Email Registration:</p>
+	
+	<form method="GET" action="?" id="frm">
+		<p><b>Name: </b><input id="name" /></p>
+		<p><b>E-mail: </b><input id="email" /></p>
+		<p><b>Phone #: </b><input id="phone" /></p>
+		<p><b>Postal Code: </b><input id="postal" /></p>
+		<p><input type="submit" /></p>
+	</form>
+	
+	<p id="button"><span id="gen" style="border: 1px solid red">Generate Message</span></p>
+	
+	<div id="mydiv">
+	</div>
+</body>
+</html>
