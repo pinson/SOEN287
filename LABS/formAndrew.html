@@ -27,7 +27,7 @@ var start = function () {
 	var regName = /^([A-Z]+[a-z]*)\s([A-Z]+[a-z]*)/; //done
 	var regNum = /\d/;
 	var regEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/; //done
-	var regPhone = /^[2-9]\d{2}-\d{3}-\d{4}$/; //done
+	var regPhone = /^[0-9]\d{2}-\d{3}-\d{4}$/; //done
 	var regPostal = /^([A-Z]\d[A-Z]\s\d[A-Z]\d)$/; //done
 	var frm = document.getElementById("frm");
 	frm.addEventListener("submit", function(e) {
@@ -46,7 +46,7 @@ var start = function () {
 		var postal = val.toString();
 		var result = true;
 		if (!(regName.test(name)) || regNum.test(name)) {
-			alert("Please reenter your name, It must have your First and Last name. Both names must start with capitol letters.");
+			alert("Please reenter your name, It must have your First and Last name. Both names must start with capital letters.");
 			result = false;
 		} else if (!(regEmail.test(email))) {
 			alert("Please enter your email like this: alexandre.hudon@sympatico.ca.");
@@ -77,13 +77,33 @@ var genForm = function (n, e, ph, pc) {
 	para.appendChild(text);
 	divForm.appendChild(para);
 	para = document.createElement("p");
-	text = document.createTextNode("Thank you for registering to this website. A copy of this email has been sent to: " + e + ".");
+	text = document.createTextNode("Thank you for registering to this website. A copy of this email has been sent to: ");
 	para.appendChild(text);
 	divForm.appendChild(para);
-	text = document.createTextNode("We will also try to call you on your cellphone (" + ph + ") and send mail to your mailbox (" + pc + ").");
+	//para = document.createElement("a");
+	//text = document.createTextNode(e +"." );
+	//para.appendChild(text);
+	//divForm.appendChild(para);
+	
+	var a = document.createElement('a');
+	var linkText = document.createTextNode(e + ".");
+	a.appendChild(linkText);
+	a.title = e;
+	a.href = "?";
+	divForm.appendChild(a);
+	
+	
+	text = document.createTextNode("We will also try to call you on your cellphone (" + ph + ") and send mail to your mailbox" );
 	para = document.createElement("p");
 	para.appendChild(text);
 	divForm.appendChild(para);
+	
+	// insert the postal code 
+	text = document.createTextNode("(" + pc + ")"+".")
+	para = document.createElement("p");
+	para.appendChild(text);
+	divForm.appendChild(para);
+	
 	para = document.createElement("p");
 	text = document.createTextNode("Have a nice day,");
 	para.appendChild(text);
@@ -98,15 +118,15 @@ window.addEventListener("load", start, false);
 </script>
 </head>
 <body>
-	<h1>Form</h1>
+	<h1>Enter your Information</h1>
 	<p>Email Registration:</p>
 	
 	<form method="GET" action="?" id="frm">
 		<p><b>Name: </b><input id="name" /></p>
-		<p><b>E-mail: </b><input id="email" /></p>
-		<p><b>Phone #: </b><input id="phone" /></p>
-		<p><b>Postal Code: </b><input id="postal" /></p>
-		<p><input type="submit" /></p>
+		<p><b>E-mail: </b><input id="email" /> (must be formatted this way: name@domain.extension)</p>
+		<p><b>Phone #: </b><input id="phone" /> (must be formatted this way: 999-999-9999)</p>
+		<p><b>Postal Code: </b><input id="postal" />(must be formatted this way: A1A 1A1)</p>
+		<p><input type="submit" value="submit" /></p>
 	</form>
 	
 	<p id="button"><span id="gen" style="border: 1px solid red">Generate Message</span></p>
