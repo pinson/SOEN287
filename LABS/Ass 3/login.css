@@ -1,0 +1,49 @@
+body  {
+	font-size: 14pt;
+	font-family: Verdana, Helvetical, sans-serif;
+	background-image: url('bg.jpg');
+	background-color: yellow;
+}
+
+html, body	{
+		height: 100%;
+}
+
+#login	{
+	background: white;
+	border: 5pt solid black;
+	position: absolute;
+	height: 220px;
+	width: 300px;
+	right: 40%;
+	left: 40%;
+	top: 40%;
+}
+
+#login table	{
+	position: absolute;
+	top: 30%;
+}
+
+#login h4	{
+	color: #0033FF;
+	text-align: center;
+}
+
+#login th	{
+	color: #0033FF;
+	text-align: left;
+}
+
+#err	{
+	color: #CC0000;
+	position: relative;
+	top: 30%;
+	text-align: center;
+}
+
+#button	{
+	position: relative;
+	text-align: center;
+	top: 30%;
+}
