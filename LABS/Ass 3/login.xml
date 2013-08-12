@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE users [
+  <!ELEMENT users		(user*)>
+	<!ELEMENT user		(fullname, password)>
+	<!ELEMENT fullname	(#PCDATA)>
+	<!ELEMENT password	(#PCDATA)>
+	<!ATTLIST user	id	ID	#IMPLIED>
+]>
+
+<users>
+	<user id="soen287">
+		<fullname>Blah Blah</fullname>
+		<password>student</password>
+	</user>
+</users>
