@@ -1,6 +1,7 @@
 <?php
-session_save_path("/www/home/a/a_webbe/s287/lab3/temp");
-session_start(); ?>
+session_save_path("/www/home/a/a_webbe/s287/lab3/temp"); //added this because I didn't have the appropriate rights in the temp folder.
+session_start();
+ob_start(); ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -12,8 +13,8 @@ session_start(); ?>
 
         <div id="login">
                 <h4>Login Credentials</h4>
+                <form method="POST" action="login.php">
                 <table>
-                <form method="post" action="" id="frm">
                         <tr>
                                 <th>User:</th>
                                 <td><input type="text" name="xuser" /><td>
@@ -22,11 +23,15 @@ session_start(); ?>
                                 <th>Password:</th>
                                 <td><input type="password" name="xpass" /><td>
                         </tr>
-                </form>
                 </table>
-                <p name="err"></p>
-                <p id="button"><input name="submit" type="submit" value="Login" /></p>
-        </div>
+                <div><?php
+                        function errmsg() {
+                                printf('<p id="err">Wrong Username or Password!</p>');
+                        }
+                ?></div>
+                <p id="button"><input name="login" type="submit" value="Login" /></p>
+                </form>
+         </div>
 
 <?php
 
@@ -36,16 +41,9 @@ function logout() {
         $goodpass = "";
 }
 
-function login() {
-        $user = "";
-        if (isset($_REQUEST["xuser"])) {
-                $user = $_REQUEST["xuser"];
-        }
-
-        $pass = "";
-        if (isset($_REQUEST["xpass"])) {
-                $pass = $_REQUEST["xpass"];
-        }
+if (isset($_POST['login'])) {
+        $user = $_REQUEST["xuser"];
+        $pass = $_REQUEST["xpass"];
 
         $document = new DOMDocument();
         $document->validateOnParse = true;
@@ -57,22 +55,22 @@ function login() {
         if (isset($usertag)) {
                 foreach ($usertag->childNodes as $tag) {
                         if ($tag->nodeType == 1 && $tag->tagName == "password") {
-                                $goodpass = $tag->nodevalue;
+                                $goodpass = $tag->nodeValue;
                         }
                 }
         }
-
-        if (sha1($user . $pass) == $goodpass) {
-                print "<p>Good Password</p>";
-                $_SESSION["username"] = $user;
+        //print "$goodpass";
+        //print "$user . $pass";
+        if (sha1($pass) == $goodpass) {
+                //print "<p>Good Password</p>";
+                //$_SESSION['logged'] = $user;
+                header("location: index.php");
+                exit();
         } else {
-                print "<p>Bad Password</p>";
+                //print "<p>Bad Password</p>"; //debug
+                errmsg();
                 $_SESSION["username"] = "";
         }
-}
-
-if(isset($_POST['submit'])) {
-        login();
 }
 
 if(isset($_POST['logout'])) {
