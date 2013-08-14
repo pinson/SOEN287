@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE posts [
-<!ELEMENT text (text)*>
-<!ELEMENT log (#PCDATA)>
-<!ATTLIST log id ID #IMPLIED>
+<!ELEMENT log (text)*>
+<!ELEMENT text (#PCDATA)>
+<!ATTLIST text id ID #IMPLIED>
 ]>
-<text>
-    <log> </log>
-</text>
+<texts>
+    <log>
+<text> </text>
+    </log>
+
+
+<log><text>asdasd Dec/31/1969 07:12</text></log><log><text>Example 1 Dec/31/1969 07:12</text></log><log><text>Example 2 Dec/31/1969 07:12</text></log></texts>
