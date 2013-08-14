@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE users [
-  <!ELEMENT users		(user*)>
-	<!ELEMENT user		(fullname, password)>
-	<!ELEMENT fullname	(#PCDATA)>
-	<!ELEMENT password	(#PCDATA)>
-	<!ATTLIST user	id	ID	#IMPLIED>
+        <!ELEMENT users         (user*)>
+        <!ELEMENT user          (fullname, password)>
+        <!ELEMENT fullname      (#PCDATA)>
+        <!ELEMENT password      (#PCDATA)>
+        <!ATTLIST user  id      ID      #IMPLIED>
 ]>
 
 <users>
-	<user id="soen287">
-		<fullname>Blah Blah</fullname>
-		<password>student</password>
-	</user>
+        <user id="soen287">
+                <fullname>Ad Min</fullname>
+                <password>204036a1ef6e7360e536300ea78c6aeb4a9333dd</password>
+        </user>
+        <user id="a_webbe">
+                <fullname>Andrew Webber</fullname>
+                <password>7110eda4d09e062aa5e4a390b0a572ac0d2c0220</password>
+        </user>
 </users>
