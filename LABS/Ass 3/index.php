@@ -1,3 +1,18 @@
+<?php
+session_save_path("/www/home/a/a_webbe/s287/lab3/temp");
+session_start();
+ob_start();
+$confirm = $_SESSION['logged'];
+$xml = simplexml_load_file("text.xml"); //This line will load the XML file.
+
+$sxe = new SimpleXMLElement($xml->asXML()); //In this line it create a SimpleXMLElement object with the source of the XML file.
+//The following lines will add a new child and others child inside the previous child created.
+$log = $sxe->addChild("log");
+$log->addChild("log", "Nairoby");
+$log->addChild("log", "Del Rosario");
+//This next line will overwrite the original XML file with new data added
+$sxe->asXML("text.xml");  
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -15,14 +30,24 @@
 		</div>
 
 		<div id="log">
+            <?php
+                $document = new DOMDocument();
+                $document->validateOnParse = true;
+                $document->load("text.xml");
+    foreach ($document->getElementsByTagName("log") as $post) {
+	$content = $log->nodeValue;
+	$content = filter_var($content, FILTER_SANITIZE_SPECIAL_CHARS);
+	print "<li>$content</li>\n";
+}
+            ?>
 		</div>
 		
 	<div id="form">
 		<h2>My secret Log</h2>
 		<form id="user" action="?"  method="post">
 			<textarea id="myTextarea"  rows="4" cols="50" form="form"> enter text here </textarea>
-            <button type="button" onclick="displayResult()">Add entry</button>
-			<input type="submit" value="Reload page">
+            <button type="button" >Add entry</button>
+			<input type="submit" onsubmit="reload()"value="Reload page">
             <!--<input name="logout" type="submit"onsubmit="login.php" value="logout" />-->
 		</form>
         
@@ -33,8 +58,6 @@
         </form> 
      </div>
 
-<?php
 
-?>
 </body>
 </html>

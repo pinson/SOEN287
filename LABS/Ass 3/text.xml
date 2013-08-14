@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE posts [
+<!ELEMENT text (text)*>
+<!ELEMENT log (#PCDATA)>
+<!ATTLIST log id ID #IMPLIED>
+]>
+<text>
+    <log> </log>
+</text>
