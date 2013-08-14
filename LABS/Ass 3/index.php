@@ -4,7 +4,7 @@ session_start();
 ob_start();
 $confirm = $_SESSION['logged'];
 global $orderDate;
-$orderDate = strftime('%c');
+$orderDate = time();
 /*if(! isset($confrim)) {
         header("location: login.php");
         exit();
@@ -42,17 +42,18 @@ $orderDate = strftime('%c');
 $document = new DOMDocument();
 $document->validateOnParse = true;
 $document->load("text.xml");
+print("<ol>");
 foreach ($document->getElementsByTagName("text") as $text) {
 	$content = $text->nodeValue;
 	$content = filter_var($content, FILTER_SANITIZE_SPECIAL_CHARS);
-	printf( "<ol>$content</ol>\n");
+	print( "<li>$content</li>\n");
 }
 if(isset($_POST['textentry'])){
                     // print "YUP";
                     $newentry = $_POST['usertext'];
                     //$xml = simplexml_load_file("text.xml");
-                    //$sxe = new SimpleXMLElement($xml->asXML())
-                    $ed = $newentry .date("... M/d/Y h:m", $orderdate);
+                    //$sxe = new SimpleXMLElement($xml->asXML()
+                    $ed = $newentry .date(' m/d/Y h:i:s a',$orderDate);
                     $log = $sxe->addChild("log");
                     $log->addChild("text", $ed);
                     $sxe->asXML("text.xml");  
