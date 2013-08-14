@@ -21,7 +21,7 @@
 	<div id="form">
 		
 		<form action="welcome.php" method="post">
-			<textarea rows="4" cols="50">
+			<textarea name="content" rows="4" cols="50">
 			</textarea>
 			<input type="submit" value="Add entry">
 			<input type="submit" value="Reload page">
