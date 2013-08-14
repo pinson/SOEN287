@@ -7,22 +7,42 @@
 	z-index:-1;
 	}
 
+#form h2{
+    color:blue;
+    text-align: center;
+    
+}
+           
+#log p{
+    color:green;
+}    
 #header {
 	text-align: center;
 	color: purple;
 	}
 #log{	
-	position:relative;
-	width:80%;
-	height:100px;
-	padding:10px;
-	border:5px solid gray;
-	margin:10%; 
+	position:absolute;
+	width:90%;
+	height:180px;
+	border:5px solid gray; 
 	}
+#user{
+    position: absolute;
+    
+}
 
 #form{
-	position:relative;
-	/*height:100px; */
-	margin:10%; 
+    top: 260px;
+	position:absolute; 
+    border:5px solid gray;
+    height: 200px;
+    width:90%;
+	}
+
+#form1{
+	 position:absolute;
+     width: 100px;
+     top: 440px;
+     left: 200px;
 	}
 	
